@@ -3,7 +3,7 @@ close all
 clc
 
 %%% Configuration Data
-serialPort = 'COM4';            % define COM port #
+serialPort = 'COM3';            % define COM port #
 baudRate = 115200;
 
 
@@ -32,18 +32,18 @@ while 1
     wo = 60/(fs/2);  bw = wo/35;
     [b1,a1] = iirnotch(wo,bw);              %Notch filter
     
-%     totalArray = filter(b1,a1,totalArray);
-%     totalArray = filter(b1,a1,totalArray);
+%      totalArray = filter(b1,a1,totalArray);
+%      totalArray = filter(b1,a1,totalArray);
     
-    wo = 10/(fs/2);  bw = wo/35;
+    wo = 12/(fs/2);  bw = wo/35;
     [b1,a1] = iirpeak(wo,bw);
     
-%     totalArray = filter(b1,a1,totalArray);
+%       totalArray = filter(b1,a1,totalArray);
     
 %     totalArray = detrend(totalArray);
     
     [b1,a1] = butter(4,50/(fs/2));          %Low pass filter
-    totalArray = filter(b1,a1,totalArray);
+%     totalArray = filter(b1,a1,totalArray);
     
     y = fft(totalArray);
     l = length(y);
@@ -60,7 +60,7 @@ while 1
 %     time(k) = k;
 %     AlphaAvrArr(k) = AlphaAvr;
 
-    totalArray = totalArray - P1(1);
+     totalArray = totalArray - P1(1);
     subplot(2,1,1)
     plot(x,totalArray);
     axis([0 inf -2.5 2.5])
@@ -70,7 +70,7 @@ while 1
     
     subplot(2,1,2)
     plot(f,P1);
-    axis([0 50 0 0.5])
+    axis([0 100 0 inf])
     xlabel('Frequency (Hz)');
     ylabel('Amplitude (v)');
     title('Frequency Analysis');
