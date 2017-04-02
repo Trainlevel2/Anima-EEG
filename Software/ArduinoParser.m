@@ -18,9 +18,12 @@ pause(1)
 k = 1;
 while 1
     %totalArray = zeros(1,2048);
+    %Read from serial
     prev = 0;
     sampleArray = fscanf(s, '%c');
     
+    %Get info between { and } and convert it to number
+    % array totalArray
     br1 = find(sampleArray=='{',1,'first') + 1;
     br2 = find(sampleArray=='}',1,'first') - 1;
     
@@ -36,7 +39,7 @@ while 1
 %     totalArray = filter(b1,a1,totalArray);
     
     wo = 10/(fs/2);  bw = wo/35;
-    [b1,a1] = iirpeak(wo,bw);
+    [b1,a1] = iirpeak(wo,bw);               %?? filter
     
 %     totalArray = filter(b1,a1,totalArray);
     
@@ -59,6 +62,7 @@ while 1
 %     AlphaAvr = sum(P1(5:7))/3;
 %     time(k) = k;
 %     AlphaAvrArr(k) = AlphaAvr;
+
 
     totalArray = totalArray - P1(1);
     subplot(2,1,1)
