@@ -1,5 +1,5 @@
 function output = classifier(input,errorMargin)
-    sum = input(0); count1 = 0;
+    sum = input(1); count1 = 0;
     sum2 = 0; count2 = 0;
     x=1;
     while(x<input.length)
