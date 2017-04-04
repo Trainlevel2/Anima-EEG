@@ -15,10 +15,11 @@ s.InputBufferSize = 20000;
 fopen(s);
 %figure
 pause(1)
-AlphaAvrArr1 = zeros(1,30);
-AlphaAvrArr2 = zeros(1,30);
-AlphaMinArr1 = zeros(1,30);
-AlphaMinArr2 = zeros(1,30);
+limit = 60;
+AlphaAvrArr1 = zeros(1,limit);
+AlphaAvrArr2 = zeros(1,limit);
+AlphaMinArr1 = zeros(1,limit);
+AlphaMinArr2 = zeros(1,limit);
 k = 1;
 while 1
     %totalArray = zeros(1,2048);
@@ -89,31 +90,34 @@ while 1
     
     AlphaAvr1 = sum(P11(9:14))/6;
     AlphaMin1 = min(P11(9:14));
-    AlphaAvrArr1(30) = AlphaAvr1;
-    AlphaMinArr1(30) = AlphaMin1;
+    AlphaAvrArr1(end) = AlphaAvr1/AlphaMin1;
+    AlphaMinArr1(end) = AlphaMin1;
     AlphaAvr2 = sum(P12(9:14))/6;
     AlphaMin2 = min(P12(9:14));
-    AlphaAvrArr2(30) = AlphaAvr2;
-    AlphaMinArr2(30) = AlphaMin2;
+    AlphaAvrArr2(end) = AlphaAvr2/AlphaMin2;
+    AlphaMinArr2(end) = AlphaMin2;
     
     subplot(2,1,1)
     plot(AlphaAvrArr1);
     hold on
     plot(AlphaAvrArr2);
-    title('Minimum Mu Values')
+    title('Average/Minimum Ratio Mu Values')
     xlabel('Time (s)') % x-axis label
     ylabel('Magnitude (V)') % y-axis label
     hold off
-    axis([0 inf 0 0.02])
+    axis([0 inf 0 20])
     subplot(2,1,2)
     plot(AlphaMinArr1);
     hold on
     plot(AlphaMinArr2);
-    title('Average Mu Values')
+    title('Minimum Mu Values')
+    x = 5;
     xlabel('Time (s)') % x-axis label
     ylabel('Magnitude (V)') % y-axis label
+    txt = {strcat('right: ' , num2str(AlphaAvr1/AlphaMin1)), strcat('left: ' , num2str(AlphaAvr2/AlphaMin2))};
+    text(length(AlphaMinArr2),.002 * .8, txt, 'HorizontalAlignment', 'right');
     hold off
-    axis([0 inf 0 0.02])
+    axis([0 inf 0 0.002])
     
     drawnow
 

@@ -1,0 +1,7 @@
+1. Not Moving
+2. Move Hands
+3. Not Moving
+4. Think Move
+5. Right
+6. Left
+7. Not Moving

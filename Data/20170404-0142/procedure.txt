@@ -4,6 +4,7 @@ Not Moving: focus on counting arbitrary numbers up
 
 NOTE: last 5 seconds of each screenshot not reliable, due to hands moving to take the screenshot.
 NOTE: top graph is amplitude of average values, lower is min values, within frequency range for mu waves. 
+NOTE: left hand was orange, right was blue
 
 1. Not moving
 2. Move Right

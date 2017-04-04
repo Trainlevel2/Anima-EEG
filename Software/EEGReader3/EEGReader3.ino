@@ -1,8 +1,8 @@
 #define ARRAY_SIZE 1500
 
 int analogPin0 = A0;
-int analogPin1 = A1;
-int analogPin2 = A2;
+int analogPin1 = A5;
+int analogPin2 = A9;
 
 void setup() {
   // put your setup code here, to run once:
