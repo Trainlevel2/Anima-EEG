@@ -1,0 +1,6 @@
+1. None
+2. Left Move
+3. Right Move
+4. None
+5. Left Move
+6. Right Move

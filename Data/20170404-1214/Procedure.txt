@@ -1,0 +1,7 @@
+1. None
+2. None
+3. left move
+4. right move
+5. None
+6. left think
+7. right think
