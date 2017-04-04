@@ -100,12 +100,18 @@ while 1
     plot(AlphaAvrArr1);
     hold on
     plot(AlphaAvrArr2);
+    title('Minimum Mu Values')
+    xlabel('Time (s)') % x-axis label
+    ylabel('Magnitude (V)') % y-axis label
     hold off
     axis([0 inf 0 0.02])
     subplot(2,1,2)
     plot(AlphaMinArr1);
     hold on
     plot(AlphaMinArr2);
+    title('Average Mu Values')
+    xlabel('Time (s)') % x-axis label
+    ylabel('Magnitude (V)') % y-axis label
     hold off
     axis([0 inf 0 0.02])
     
