@@ -15,6 +15,10 @@ s.InputBufferSize = 20000;
 fopen(s);
 %figure
 pause(1)
+AlphaAvrArr1 = zeros(1,30);
+AlphaAvrArr2 = zeros(1,30);
+AlphaMinArr1 = zeros(1,30);
+AlphaMinArr2 = zeros(1,30);
 k = 1;
 while 1
     %totalArray = zeros(1,2048);
@@ -33,6 +37,9 @@ while 1
     
     fs = length(signal1);
     
+    signal11 = signal1;
+    signal22 = signal2;
+    
     signal1 = signal1 - signal3;
     signal2 = signal2 - signal3;
 
@@ -43,10 +50,10 @@ while 1
 %     totalArray = filter(b1,a1,totalArray);
 %     totalArray = filter(b1,a1,totalArray);
     
-    wo = 10/(fs/2);  bw = wo/35;
+    wo = 15/(fs/2);  bw = wo/35;
     [b1,a1] = iirpeak(wo,bw);
     
-%     totalArray = filter(b1,a1,totalArray);
+     signal1 = filter(b1,a1,signal1);
     
 %     totalArray = detrend(totalArray);
     
@@ -71,34 +78,65 @@ while 1
     x = x(1:(end-1));
 
 
-    %Alpha values
+%     %Alpha values
     
-%     AlphaAvr = sum(P1(5:7))/3;
-%     time(k) = k;
-%     AlphaAvrArr(k) = AlphaAvr;
+    AlphaAvrArr1 = circshift(AlphaAvrArr1,-1);
+    AlphaAvrArr2 = circshift(AlphaAvrArr2,-1);
+    
+    AlphaMinArr1 = circshift(AlphaMinArr1,-1);
+    AlphaMinArr2 = circshift(AlphaMinArr2,-1);
 
-%     totalArray = totalArray - P1(1);
-    subplot(2,1,1)
-    plot(x,signal1);
-    hold on
-    plot(x,signal2);
-    hold off
-    axis([0 inf -inf inf])
-    xlabel('Time (ms)');
-    ylabel('Amplitude (v)');
-    title('Time Domain Signal');
     
-    subplot(2,1,2)
-    plot(f,P11);
+    AlphaAvr1 = sum(P11(9:14))/6;
+    AlphaMin1 = min(P11(9:14));
+    AlphaAvrArr1(30) = AlphaAvr1;
+    AlphaMinArr1(30) = AlphaMin1;
+    AlphaAvr2 = sum(P12(9:14))/6;
+    AlphaMin2 = min(P12(9:14));
+    AlphaAvrArr2(30) = AlphaAvr2;
+    AlphaMinArr2(30) = AlphaMin2;
+    
+    subplot(2,1,1)
+    plot(AlphaAvrArr1);
     hold on
-    plot(f,P12);
+    plot(AlphaAvrArr2);
     hold off
-    axis([0 inf 0 inf])
-    xlabel('Frequency (Hz)');
-    ylabel('Amplitude (v)');
-    title('Frequency Analysis');
+    axis([0 inf 0 0.02])
+    subplot(2,1,2)
+    plot(AlphaMinArr1);
+    hold on
+    plot(AlphaMinArr2);
+    hold off
+    axis([0 inf 0 0.02])
     
     drawnow
+
+
+%     subplot(2,1,1)
+%     plot(x,signal1);
+%     hold on
+%     plot(x,signal2);
+%     hold off
+%     axis([0 inf -inf inf])
+%     xlabel('Time (ms)');
+%     ylabel('Amplitude (v)');
+%     title('Time Domain Signal');
+%     
+%     subplot(2,1,2)
+%     plot(f,P11);
+%     hold on
+%     plot(f,P12);
+%     hold off
+%     axis([0 30 0 0.01])
+%     xlabel('Frequency (Hz)');
+%     ylabel('Amplitude (v)');
+%     title('Frequency Analysis');
+%     
+%     drawnow
     
-    k=k+1;
+%     if k==10
+%         k=0;
+%     else
+%         k=k+1;
+%     end
 end

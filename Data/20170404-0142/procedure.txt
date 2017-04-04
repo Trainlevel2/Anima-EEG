@@ -1,0 +1,14 @@
+Position: legs crossed, sitting on chair, arms laid with palms down.
+Move: clench and unclench hand repeatedly
+Not Moving: focus on counting arbitrary numbers up
+
+NOTE: last 5 seconds of each screenshot not reliable, due to hands moving to take the screenshot.
+NOTE: top graph is amplitude of average values, lower is min values, within frequency range for mu waves. 
+
+1. Not moving
+2. Move Right
+3. Move Left
+4. Not Moving
+5. Move Both
+6. Move Eyes
+7. Move Both
