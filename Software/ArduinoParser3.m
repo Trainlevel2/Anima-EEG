@@ -6,7 +6,6 @@ clc
 serialPort = 'COM3';            % define COM port #
 baudRate = 115200;
 
-
 % initialize the java engine
 import java.awt.*;
 import java.awt.event.*;
@@ -42,7 +41,7 @@ while 1
     
     totalArray = str2num(sampleArray(br1:br2));
     
-    
+    %signals from eeg
     signal1 = totalArray(1:3:end);
     signal2 = totalArray(2:3:end);
     signal3 = totalArray(3:3:end);
@@ -113,32 +112,33 @@ while 1
     
     ymaxaxis = 15;
     
-        subplot(2,1,1)
-        plot(AlphaAvrArr1);
-        hold on
-        plot(ones(1,60)*lsensitivity);
-        plot(ones(1,60)*5);
-        plot(ones(1,60)*10);
-        title('Left Mu Values (Average/Minimum Ratio)')
-        xlabel('Time (s)') % x-axis label
-        ylabel('Ratio') % y-axis label
-        hold off
-        axis([0 inf 0 ymaxaxis])
-        subplot(2,1,2)
-        plot(AlphaAvrArr2);
-        hold on
-        plot(ones(1,60)*rsensitivity);
-        plot(ones(1,60)*5);
-        plot(ones(1,60)*10);
-        hold off
-        title('Right Mu Values (Average/Minimum Ratio)')
-        xlabel('Time (s)') % x-axis label
-        ylabel('Ratio') % y-axis label
-        txt = {strcat('right: ' , num2str(moveRight)), strcat('left: ' , num2str(moveLeft))};
-        text(length(AlphaMinArr2),ymaxaxis * .8, txt, 'HorizontalAlignment', 'right');
-        axis([0 inf 0 ymaxaxis])
-    
-        drawnow
+    % Plotting
+    subplot(2,1,1)
+    plot(AlphaAvrArr1);
+    hold on
+    plot(ones(1,60)*lsensitivity);
+    plot(ones(1,60)*5);
+    plot(ones(1,60)*10);
+    title('Left Mu Values (Average/Minimum Ratio)')
+    xlabel('Time (s)') % x-axis label
+    ylabel('Ratio') % y-axis label
+    hold off
+    axis([0 inf 0 ymaxaxis])
+    subplot(2,1,2)
+    plot(AlphaAvrArr2);
+    hold on
+    plot(ones(1,60)*rsensitivity);
+    plot(ones(1,60)*5);
+    plot(ones(1,60)*10);
+    hold off
+    title('Right Mu Values (Average/Minimum Ratio)')
+    xlabel('Time (s)') % x-axis label
+    ylabel('Ratio') % y-axis label
+    txt = {strcat('right: ' , num2str(moveRight)), strcat('left: ' , num2str(moveLeft))};
+    text(length(AlphaMinArr2),ymaxaxis * .8, txt, 'HorizontalAlignment', 'right');
+    axis([0 inf 0 ymaxaxis])
+
+    drawnow
     
     
     %Mouse Movement Code
