@@ -26,8 +26,8 @@ fopen(s);
 %figure
 pause(1)
 limit = 60;
-AlphaAvrArr1 = zeros(1,limit);
-AlphaAvrArr2 = zeros(1,limit);
+AlphaRatio1 = zeros(1,limit);
+AlphaRatio2 = zeros(1,limit);
 AlphaMinArr1 = zeros(1,limit);
 AlphaMinArr2 = zeros(1,limit);
 k = 1;
@@ -54,23 +54,17 @@ while 1
     signal1 = signal1 - signal3;
     signal2 = signal2 - signal3;
     
-    %     totalArray = medfilt1(totalArray, 3);
+    % Filters
     wo = 60/(fs/2);  bw = wo/35;
     [b1,a1] = iirnotch(wo,bw);              %Notch filter
     
-    %     totalArray = filter(b1,a1,totalArray);
-    %     totalArray = filter(b1,a1,totalArray);
-    
     wo = 15/(fs/2);  bw = wo/35;
-    [b1,a1] = iirpeak(wo,bw);
+    [b1,a1] = iirpeak(wo,bw);               %Peak filter
     
-    signal1 = filter(b1,a1,signal1);
-    
-    %     totalArray = detrend(totalArray);
-    
+    signal1 = filter(b1,a1,signal1);    
     [b1,a1] = butter(4,50/(fs/2));          %Low pass filter
-    %     totalArray = filter(b1,a1,totalArray);
     
+    % FFT
     trans1 = fft(signal1);
     l1 = length(trans1);
     P21 = abs(trans1/l1);
@@ -89,23 +83,25 @@ while 1
     x = x(1:(end-1));
     
     
-    %     %Alpha values
-    
-    AlphaAvrArr1 = circshift(AlphaAvrArr1,-1);
-    AlphaAvrArr2 = circshift(AlphaAvrArr2,-1);
+    % Alpha values
+    AlphaRatio1 = circshift(AlphaRatio1,-1);
+    AlphaRatio2 = circshift(AlphaRatio2,-1);
     
     AlphaMinArr1 = circshift(AlphaMinArr1,-1);
     AlphaMinArr2 = circshift(AlphaMinArr2,-1);
     
     
-    AlphaAvr1 = sum(P11(9:14))/6;
-    AlphaMin1 = min(P11(9:14));
-    AlphaAvrArr1(end) = AlphaAvr1/AlphaMin1;
-    AlphaMinArr1(end) = AlphaMin1;
+    AlphaAvr1 = sum(P11(9:14))/6;               % average over alpha range over one time step
+    AlphaMin1 = min(P11(9:14));                 % minimum over alpha range over one time step
     AlphaAvr2 = sum(P12(9:14))/6;
     AlphaMin2 = min(P12(9:14));
-    AlphaAvrArr2(end) = AlphaAvr2/AlphaMin2;
-    AlphaMinArr2(end) = AlphaAvrArr1/AlphaAvrArr2;
+    
+    AlphaRatio1(end) = AlphaAvr1/AlphaMin1;    % ratio
+    AlphaMinArr1(end) = AlphaMin1;
+    AlphaRatio2(end) = AlphaAvr2/AlphaMin2;
+    AlphaMinArr2(end) = AlphaRatio1/AlphaRatio2;
+    
+    outRow = [AlphaAvr1, AlphaAvr2, AlphaMin1, AlphaMin2, P11(9:14), P12(9:14)]
     
     moveLeft = (AlphaAvr1/AlphaMin1 > lsensitivity);
     moveRight = (AlphaAvr2/AlphaMin2 > rsensitivity);
@@ -114,7 +110,7 @@ while 1
     
     % Plotting
     subplot(2,1,1)
-    plot(AlphaAvrArr1);
+    plot(AlphaRatio1);
     hold on
     plot(ones(1,60)*lsensitivity);
     plot(ones(1,60)*5);
@@ -125,7 +121,7 @@ while 1
     hold off
     axis([0 inf 0 ymaxaxis])
     subplot(2,1,2)
-    plot(AlphaAvrArr2);
+    plot(AlphaRatio2);
     hold on
     plot(ones(1,60)*rsensitivity);
     plot(ones(1,60)*5);
@@ -140,7 +136,6 @@ while 1
 
     drawnow
     
-    
     %Mouse Movement Code
     
     if moveRight
@@ -148,34 +143,4 @@ while 1
     elseif moveLeft
         [mx,my] = movemouse(rob,mx,my,-1 * 1,-0,1);     %Move left
     end
-    
-    
-    
-    %     subplot(2,1,1)
-    %     plot(x,signal1);
-    %     hold on
-    %     plot(x,signal2);
-    %     hold off
-    %     axis([0 inf -inf inf])
-    %     xlabel('Time (ms)');
-    %     ylabel('Amplitude (v)');
-    %     title('Time Domain Signal');
-    %
-    %     subplot(2,1,2)
-    %     plot(f,P11);
-    %     hold on
-    %     plot(f,P12);
-    %     hold off
-    %     axis([0 30 0 0.01])
-    %     xlabel('Frequency (Hz)');
-    %     ylabel('Amplitude (v)');
-    %     title('Frequency Analysis');
-    %
-    %     drawnow
-    
-    %     if k==10
-    %         k=0;
-    %     else
-    %         k=k+1;
-    %     end
 end
