@@ -8,8 +8,8 @@ inputfile = 'trainData.mat'
 load(inputfile);
 inputs = cat(1, calm, left, right)';
 calmtarget = repmat([0,1,0],size(calm,1), 1);
-lefttarget = repmat([1,0,0],size(left,1), 1);
-righttarget = repmat([0,0,1],size(right,1), 1);
+lefttarget = repmat([0,,0],size(calm,1), 1);
+righttarget = repmat([0,1,0],size(calm,1), 1);
 targets = cat(1, calmtarget, lefttarget, righttarget)';
 
 x = inputs;
@@ -21,7 +21,7 @@ t = targets;
 % 'traingdx' gradient descent with momentum and adaptive lr
 % backpropagation.
 % 'trainscg' uses less memory. Suitable in low memory situations.
-trainingFunction = 'trainscg';  % Scaled conjugate gradient backpropagation.
+trainingFunction = 'traingdx';  % Scaled conjugate gradient backpropagation.
 
 % Create a Pattern Recognition Network
 hiddenLayersPerLayer = 10;
