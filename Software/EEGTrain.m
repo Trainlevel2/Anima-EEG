@@ -6,7 +6,16 @@ timeBetweenMessages = 1;
 
 %%% Start of program
 
-% load('trainData.mat','calm', 'right', 'left')
+load('trainData.mat','calm', 'right', 'left')
+if ~exist('calm', 'var') || ~exist('right', 'var') || ~exist('left', 'var')
+    fprintf('no existing data. initializing matrices\n');
+    calm = [];
+    right = [];
+    left = [];
+else
+    fprintf('Welcome to a continued test session.\n');
+end
+
 
 fprintf('Welcome to the Anima training program\n');
 pause(timeBetweenMessages);
@@ -22,11 +31,8 @@ end
 fprintf('End relaxation...\n');
 pause(timeBetweenMessages);
 
-calm = [];
-right = [];
-left = [];
 rounds = 2;
-timePerDirection = 120;
+timePerDirection = 60;
 
 for i = 1:rounds
     fprintf('Round: %d (of %d)\n', i, rounds);
