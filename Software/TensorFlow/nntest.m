@@ -3,7 +3,7 @@
 %   x: input data.
 %   t: target output data.
 
-inputfile = 'trainData.mat'
+inputfile = 'EricData.mat'
 
 load(inputfile);
 inputs = cat(1, calm, left, right)';
@@ -20,12 +20,17 @@ t = targets;
 % 'traingd' gradient descent
 % 'traingdx' gradient descent with momentum and adaptive lr
 % backpropagation.
-% 'trainscg' uses less memory. Suitable in low memory situations.
-trainingFunction = 'trainscg';  % Scaled conjugate gradient backpropagation.
+% 'trainscg' uses less memory. Suitable in low memory situations, esp for
+    % large amounts of weights, said to be 'best' for classification due to
+    % doing well with many weights and being fast but may overshoot easily
+    % and not good for 
+% 'trainlm' for regression (fastest and default, but not for classification...)
+% 'trainrp' for huge datasets
+trainingFunction = 'trainlm';  % Scaled conjugate gradient backpropagation.
 
 % Create a Pattern Recognition Network
-hiddenLayersPerLayer = 10;
-network = patternnet(hiddenLayersPerLayer, trainingFunction);
+hiddenSizes = 10;
+network = patternnet(hiddenSizes, trainingFunction);
 
 % Choose Input and Output Pre/Post-Processing Functions
 % For a list of all processing functions type: help nnprocess
@@ -41,15 +46,12 @@ network.divideParam.valRatio = 15/100;
 network.divideParam.testRatio = 15/100;
 
 % Choose a Performance Function
-% For a list of all performance functions type: help nnperformance
 network.performFcn = 'crossentropy';  % Cross-Entropy
 
-% Choose Plot Functions
-% For a list of all plot functions type: help nnplot
-network.plotFcns = {'plotperform','plottrainstate','ploterrhist', ...
-    'plotconfusion', 'plotwb'};
+% Choose Plot Functions (doc nnplot for all plot functions)
+network.plotFcns = {'plotperform','plottrainstate','ploterrhist', 'plotconfusion', 'plotwb'};
 
-%training parameters
+%# of epochs lol
 network.trainParam.epochs = 10000;
 
 % Train the Network
