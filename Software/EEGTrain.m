@@ -3,10 +3,11 @@ close all
 clc
 
 timeBetweenMessages = 1;
+fileName = 'EricData1hrv2.mat';
 
 %%% Start of program
 
-load('trainData.mat','calm', 'right', 'left')
+load(fileName,'calm', 'right', 'left')
 if ~exist('calm', 'var') || ~exist('right', 'var') || ~exist('left', 'var')
     fprintf('no existing data. initializing matrices\n');
     calm = [];
@@ -54,8 +55,8 @@ for i = 1:rounds
     left = cat(1, left, thisleft);
 end
 
-fprintf('Thank you for your brain wave training data! The data will be saved in trainData.mat\n');
-save('trainData.mat','calm', 'right', 'left')
+fprintf('Thank you for your brain wave training data! The data will be saved in %s\n', fileName);
+save(fileName,'calm', 'right', 'left')
 
 % train function
 function ret = train(endTime)
@@ -121,7 +122,7 @@ function ret = train(endTime)
 
         % FFT
         trans1 = fft(signal1);
-        l1 = length(trans1)
+        l1 = length(trans1);
         P21 = abs(trans1/l1);
         P11 = P21(1:floor(l1/2+1));
         P11(2:end-1) = 4*P11(2:end-1);

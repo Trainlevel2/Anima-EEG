@@ -1,19 +1,30 @@
+clear all
+close all
+clc
+
 % Neural Network Classification
 %   Mostly from Neural Pattern Recognition App
 %   x: input data.
 %   t: target output data.
 
-inputfile = 'EricData.mat'
+inputfile = 'EricData2hr.mat';
 
 load(inputfile);
-inputs = cat(1, calm, left, right)';
-calmtarget = repmat([0,1,0],size(calm,1), 1);
-lefttarget = repmat([1,0,0],size(left,1), 1);
-righttarget = repmat([0,0,1],size(right,1), 1);
-targets = cat(1, calmtarget, lefttarget, righttarget)';
 
-x = inputs;
-t = targets;
+if exist('x', 'var') && exist('t', 'var')
+    fprintf('using x and t from file\n');
+elseif exist('x', 'var') || exist('t', 'var')
+    fprintf('wtf... probably corrupted file...\n');
+else
+    fprintf('generating x and t from calm, left, and target\n');
+    inputs = cat(1, calm, left, right)';
+    calmtarget = repmat([0,1,0],size(calm,1), 1);
+    lefttarget = repmat([1,0,0],size(left,1), 1);
+    righttarget = repmat([0,0,1],size(right,1), 1);
+    targets = cat(1, calmtarget, lefttarget, righttarget)';
+    x = inputs;
+    t = targets;
+end
 
 % Choose a Training Function (doc nntrain for more)
 % 'trainbr' takes longer, just using for testing stuff
@@ -26,7 +37,7 @@ t = targets;
     % and not good for 
 % 'trainlm' for regression (fastest and default, but not for classification...)
 % 'trainrp' for huge datasets
-trainingFunction = 'trainlm';  % Scaled conjugate gradient backpropagation.
+trainingFunction = 'trainrp';  % Scaled conjugate gradient backpropagation.
 
 % Create a Pattern Recognition Network
 hiddenSizes = 10;
