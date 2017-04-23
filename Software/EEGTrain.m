@@ -190,7 +190,7 @@ function ret = train(endTime)
 
         drawnow
         
-        ret(i, 1:98) = [AlphaRatio1(end), AlphaRatio2(end), AlphaAvr1, AlphaAvr2, AlphaMin1, AlphaMin2, P11(5:50), P12(5:50)];
+        ret(i, 1:100) = [AlphaRatio1(end), AlphaRatio2(end), AlphaAvr1, AlphaAvr2, AlphaMin1, AlphaMin2, P11(1), P11(5:50), P12(1), P12(5:50)];
     end
     
     fprintf('End\n');
