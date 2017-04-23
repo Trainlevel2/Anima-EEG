@@ -3,7 +3,7 @@ close all
 clc
 
 timeBetweenMessages = 1;
-fileName = 'EricData1hrv2.mat';
+fileName = 'EricData3hr.mat';
 
 %%% Start of program
 
