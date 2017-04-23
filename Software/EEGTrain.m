@@ -189,8 +189,8 @@ function ret = train(endTime)
         axis([0 inf 0 ymaxaxis])
 
         drawnow
-
-        ret(i, 1:16) = [AlphaAvr1, AlphaAvr2, AlphaMin1, AlphaMin2, P11(9:14), P12(9:14)];
+        
+        ret(i, 1:98) = [AlphaRatio1(end), AlphaRatio2(end), AlphaAvr1, AlphaAvr2, AlphaMin1, AlphaMin2, P11(5:50), P12(5:50)];
     end
     
     fprintf('End\n');
