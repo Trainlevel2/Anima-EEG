@@ -2,9 +2,9 @@ clear all
 close all
 clc
 
-inputfile1 = '18minData.mat';
-inputfile2 = 'EricData1hrv3.mat';
-outputfile = '36minData.mat';
+inputfile1 = 'EricData423pt1.mat';
+inputfile2 = 'EricData423pt2.mat';
+outputfile = 'EricData423full.mat';
 
 load(inputfile1);
 calm1 = calm;

@@ -7,7 +7,7 @@ clc
 %   x: input data.
 %   t: target output data.
 
-inputfile = 'EricData2hr.mat';
+inputfile = 'EricData1hrv1.mat';
 
 load(inputfile);
 
@@ -37,10 +37,10 @@ end
     % and not good for 
 % 'trainlm' for regression (fastest and default, but not for classification...)
 % 'trainrp' for huge datasets
-trainingFunction = 'trainrp';  % Scaled conjugate gradient backpropagation.
+trainingFunction = 'trainscg';  % Scaled conjugate gradient backpropagation.
 
 % Create a Pattern Recognition Network
-hiddenSizes = 10;
+hiddenSizes = [50 25];
 network = patternnet(hiddenSizes, trainingFunction);
 
 % Choose Input and Output Pre/Post-Processing Functions
