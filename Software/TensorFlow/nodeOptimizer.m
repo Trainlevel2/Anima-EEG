@@ -1,9 +1,13 @@
+clear all
+close all
+clc
+
 % Neural Network Classification
 %   Mostly from Neural Pattern Recognition App
 %   x: input data.
 %   t: target output data.
 
-inputfile = 'EricData423pt3.mat';
+inputfile = 'EricData0502.mat';
 
 load(inputfile);
 
@@ -23,8 +27,13 @@ else
 end
 
 %Start
-for k = 101:200
-    for i = 1:200
+
+t_size = 100;
+
+avrGood = zeros(t_size,t_size,1);
+
+for k = 1:t_size
+    for i = 1:t_size
         percentGood = zeros(1,10);
         for j = 1:10
             % Choose a Training Function (doc nntrain for more)
