@@ -7,7 +7,7 @@ clc
 %   x: input data.
 %   t: target output data.
 
-inputfile = 'EricData1hrv1.mat';
+inputfile = 'EricData0502.mat';
 
 load(inputfile);
 
@@ -40,7 +40,7 @@ end
 trainingFunction = 'trainscg';  % Scaled conjugate gradient backpropagation.
 
 % Create a Pattern Recognition Network
-hiddenSizes = [50 25];
+hiddenSizes = [100];
 network = patternnet(hiddenSizes, trainingFunction);
 
 % Choose Input and Output Pre/Post-Processing Functions
@@ -98,6 +98,6 @@ if (true)
     % deployment in MATLAB scripts or with MATLAB Compiler and Builder
     % tools, or simply to examine the calculations your trained neural
     % network performs.
-    genFunction(network,'nnFunction.m');
+    genFunction(network,'nnFunction2.m');
     y = nnFunction(x);
 end
