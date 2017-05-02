@@ -92,25 +92,12 @@ testPerformance = perform(network,testTargets,y)
 %figure, plotconfusion(t,y)
 %figure, plotroc(t,y)
 
-% Deployment
-% Change the (false) values to (true) to enable the following code blocks.
-% See the help for each generation function for more information.
-if (false)
+% Deployment (save network for later use)
+if (true)
     % Generate MATLAB function for neural network for application
     % deployment in MATLAB scripts or with MATLAB Compiler and Builder
     % tools, or simply to examine the calculations your trained neural
     % network performs.
-    genFunction(net,'myNeuralNetworkFunction');
-    y = myNeuralNetworkFunction(x);
-end
-if (false)
-    % Generate a matrix-only MATLAB function for neural network code
-    % generation with MATLAB Coder tools.
-    genFunction(net,'myNeuralNetworkFunction','MatrixOnly','yes');
-    y = myNeuralNetworkFunction(x);
-end
-if (false)
-    % Generate a Simulink diagram for simulation or deployment with.
-    % Simulink Coder tools.
-    gensim(net);
+    genFunction(network,'nnFunction.m');
+    y = nnFunction(x);
 end
