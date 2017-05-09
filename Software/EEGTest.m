@@ -7,23 +7,22 @@ import java.awt.*;
 import java.awt.event.*;
 % initialize robot for mouse pointing
 rob=Robot;
-mx=768;
-my=312;
-
+mx=960;
+my=540;
 timeBetweenMessages = 1;
 
 %%% Start of program
 
 fprintf('Welcome to the Anima test program\n');
 pause(timeBetweenMessages);
-fprintf('Please take 30 seconds to relax and allow your brain waves to stabilize\n');
-pause(timeBetweenMessages);
-fprintf('Begin relaxation\n');
-pause(timeBetweenMessages);
-for i = 1:30
-    fprintf('%d\n', 30-i);
-    % pause(1);
-end
+% fprintf('Please take 30 seconds to relax and allow your brain waves to stabilize\n');
+% pause(timeBetweenMessages);
+% fprintf('Begin relaxation\n');
+% pause(timeBetweenMessages);
+% for i = 1:30
+%     fprintf('%d\n', 30-i);
+%     % pause(1);
+% end
 
 fprintf('End relaxation...\n');
 pause(timeBetweenMessages);
@@ -156,18 +155,19 @@ for i = 1:endTime
 
     nnInput = [AlphaRatio1(end), AlphaRatio2(end), AlphaAvr1, AlphaAvr2, AlphaMin1, AlphaMin2, P11(1), P11(5:50), P12(1), P12(5:50)];
     nnInput = nnInput';
-    nnOutput = nnFunction(nnInput);
+    nnOutput = nnFunction0504(nnInput);
+    nnOutput(1) = nnOutput(1);
     nnOutput(2) = nnOutput(2);
-    nnOutput(3) = nnOutput(3) - 0.11;
+    nnOutput(3) = nnOutput(3) + .049;
     nnOutput
 
     nnOutputMax = max(nnOutput);
     if(nnOutputMax == nnOutput(1))     %move left
-        [mx,my] = movemouse(rob,mx,my,-1,-0,1);     %Move left
+        [mx,my] = movemouse(rob,mx,my,-3,-0,1);     %Move left
     elseif(nnOutputMax == nnOutput(2)) %calm
         % don't do anything...
     elseif(nnOutputMax == nnOutput(3)) %move right
-        [mx,my] = movemouse(rob,mx,my,1,-0,1);      %Move right
+        [mx,my] = movemouse(rob,mx,my,3,-0,1);      %Move right
     else
         fprintf('lol error here\n');
     end

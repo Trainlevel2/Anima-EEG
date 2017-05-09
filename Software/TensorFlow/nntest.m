@@ -40,7 +40,7 @@ end
 trainingFunction = 'trainscg';  % Scaled conjugate gradient backpropagation.
 
 % Create a Pattern Recognition Network
-hiddenSizes = [100];
+hiddenSizes = [110 80];
 network = patternnet(hiddenSizes, trainingFunction);
 
 % Choose Input and Output Pre/Post-Processing Functions
